@@ -3,7 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Tailwind Styles */
 @layer components {
   @responsive {
     .text-shadow-sm {
@@ -36,12 +35,19 @@
 .top_section {
   @apply py-24 lg:py-48;
 }
-
+.primary_gradient {
+  @apply bg-gradient-to-r from-primary-100 to-secondary-100;
+}
+.gradient_border {
+  @apply primary_gradient w-full rounded-3xl p-[2px];
+}
+.champion_container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-gap: 0.75rem 0.75rem;
+}
 .section_heading {
   @apply white_gradient flex flex-col text-3xl leading-[32px] md:text-4xl md:leading-[40px] lg:text-5xl lg:leading-[60px] xl:text-6xl xl:leading-[64px] bg-clip-text bg-[length:100%_32px] md:bg-[length:100%_46px] lg:bg-[length:100%_60px] xl:bg-[length:100%_64px] text-transparent font-semibold text-shadow-md text-center lg:text-left lg:mr-auto;
-}
-.champ_card {
-  @apply break-inside-avoid gap-2 flex flex-col items-center justify-center rounded-lg border border-gray-300 bg-black/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter w-fit lg:w-[200px] h-fit;
 }
 .black_btn {
   @apply rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm  flex items-center justify-center;
@@ -83,7 +89,7 @@
 }
 
 .glassmorphism {
-  @apply rounded-xl border border-gray-200 bg-black/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur p-5;
+  @apply rounded-xl border border-gray-200 bg-black/20 shadow-[inset_10px_-50px_94px_0_rgb(99,99,99,0.2)] backdrop-blur p-8;
 }
 
 .text-shadow {

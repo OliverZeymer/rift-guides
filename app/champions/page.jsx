@@ -1,42 +1,42 @@
 "use client";
-
-import axios from "axios";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Champions() {
   const [champions, setChampions] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    async function getChampions() {
+    async function fetchChampions() {
       try {
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_ASSET_API_URL}/data/en_US/champion.json`);
-        const championsArray = Object.values(res.data.data);
+        const response = await fetch("/api/champions");
+        const championsData = await response.json();
+        const championsArray = Object.values(championsData.data);
         setChampions(championsArray);
       } catch (error) {
-        console.log(error);
-      } finally {
-        setIsLoading(false);
+        console.error(error);
       }
     }
-    getChampions();
+    fetchChampions();
   }, []);
+
   return (
     <section className="top_section min-h-screen px-12">
       <h1 className="section_heading bg-section_heading mb-8">Champions</h1>
-      <div className="flex flex-wrap justify-between gap-y-8">
-        {!isLoading && champions ? (
-          champions.map((champion) => (
-            <article className="champ_card glassmorphism overflow-hidden" key={champion.name}>
-              <h3 className="font-bold text-lg" key={champion.id}>
-                {champion.name}
-              </h3>
-              <Image width={50} height={50} className="rounded-full" src={`${process.env.NEXT_PUBLIC_ASSET_API_URL}/img/champion/${champion.image.full}`} alt="" />
-            </article>
-          ))
-        ) : (
-          <p>Loading...</p>
-        )}
+      <div className="gradient_border rounded-xl">
+        <div className="champion_container bg-primary-700 p-6 rounded-3xl">
+          {champions ? (
+            champions.map((champion) => (
+              <article className="flex flex-col cursor-pointer" key={champion.name}>
+                <Image width={100} height={100} className="" src={`${process.env.NEXT_PUBLIC_ASSET_API_URL}/img/champion/${champion.image.full}`} alt="" />
+                <p className="mt-2 text-sm" key={champion.id}>
+                  {champion.name}
+                </p>
+              </article>
+            ))
+          ) : (
+            <p>Loading...</p>
+          )}
+        </div>
       </div>
     </section>
   );

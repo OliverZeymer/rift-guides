@@ -1,3 +1,3 @@
-export default function GET(req, res) {
-  res.status(200).json({ name: "John Doe" });
+export async function GET() {
+  return new Response("Hello World!", { status: 200 });
 }
