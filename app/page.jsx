@@ -1,6 +1,4 @@
-"use client";
 import LandingHero from "@components/LandingHero";
-import { useState } from "react";
 
 export default function Home() {
   return (

@@ -3,26 +3,26 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-  @responsive {
-    .text-shadow-sm {
-      text-shadow: 0 0 32px hsla(0, 0%, 100%, 0.25);
-    }
+@layer utilities {
+  .text-shadow-sm {
+    text-shadow: 0 0 32px hsla(0, 0%, 100%, 0.25);
+  }
 
-    .text-shadow-md {
-      text-shadow: 0 0 32px hsla(0, 0%, 100%, 0.4);
-    }
+  .text-shadow-md {
+    text-shadow: 0 0 32px hsla(0, 0%, 100%, 0.4);
+  }
 
-    .text-shadow-lg {
-      text-shadow: 0 0 32px hsla(0, 0%, 100%, 0.5);
-    }
-    .text-shadow-xl {
-      text-shadow: 0 0 32px hsla(0, 0%, 100%, 0.6);
-    }
-
-    .text-shadow-none {
-      text-shadow: none;
-    }
+  .text-shadow-lg {
+    text-shadow: 0 0 32px hsla(0, 0%, 100%, 0.5);
+  }
+  .text-shadow-xl {
+    text-shadow: 0 0 32px hsla(0, 0%, 100%, 0.6);
+  }
+  .text-shadow-none {
+    text-shadow: none;
+  }
+  .purple-shadow {
+    box-shadow: 0px 5px 20px 5px rgba(53, 5, 113, 0.6);
   }
 }
 .app {
@@ -30,6 +30,51 @@
 }
 .white_gradient {
   background-image: linear-gradient(180deg, #fff, hsla(0, 0%, 100%, 0.6));
+}
+.bg-rainbow {
+  background-image: conic-gradient(
+    from 180deg at 50% 50%,
+    #3fdcf7 0deg,
+    #1890ff 51.43deg,
+    #6813cb 102.86deg,
+    #ff003d 154.29deg,
+    #ff8a00 205.71deg,
+    #ffd600 257.14deg,
+    #67be23 308.57deg,
+    #3fdcf7 1turn
+  );
+}
+.animate-rotate {
+  animation: spin 2.2s linear infinite;
+}
+.animation-running {
+  animation-play-state: running;
+}
+.animation-paused {
+  animation-play-state: paused;
+}
+.champ-image {
+  -webkit-mask-image: linear-gradient(45deg, #fff 25%, rgba(255, 255, 255, 0.2) 50%, #fff 75%);
+  mask-image: linear-gradient(45deg, #fff 25%, rgba(255, 255, 255, 0.2) 50%, #fff 75%);
+  -webkit-mask-size: 800%;
+  mask-size: 800%;
+  -webkit-mask-position: 0;
+  mask-position: 0;
+}
+
+.champ-image:hover {
+  transition: mask-position 1.3s ease, -webkit-mask-position 1.3s ease;
+  -webkit-mask-position: 120%;
+  mask-position: 120%;
+  opacity: 1;
+}
+@keyframes spin {
+  from {
+    transform: rotate(0turn);
+  }
+  to {
+    transform: rotate(1turn);
+  }
 }
 
 .top_section {
@@ -45,9 +90,10 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
   grid-gap: 0.75rem 0.75rem;
+  justify-items: center;
 }
 .section_heading {
-  @apply white_gradient flex flex-col text-3xl leading-[32px] md:text-4xl md:leading-[40px] lg:text-5xl lg:leading-[60px] xl:text-6xl xl:leading-[64px] bg-clip-text bg-[length:100%_32px] md:bg-[length:100%_46px] lg:bg-[length:100%_60px] xl:bg-[length:100%_64px] text-transparent font-semibold text-shadow-md text-center lg:text-left lg:mr-auto;
+  @apply white_gradient text-3xl leading-[32px] md:text-4xl md:leading-[40px] lg:text-5xl lg:leading-[60px] xl:text-6xl xl:leading-[64px] bg-clip-text bg-[length:100%_32px] md:bg-[length:100%_46px] lg:bg-[length:100%_60px] xl:bg-[length:100%_64px] text-transparent font-semibold text-shadow-sm text-center lg:text-left;
 }
 .black_btn {
   @apply rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm  flex items-center justify-center;
@@ -85,7 +131,7 @@
 }
 
 .search_input {
-  @apply block w-full rounded-2xl border border-primary-900 bg-bg py-3 pl-12 pr-12 text-lg shadow-lg font-medium focus:border-primary-300 focus:outline-none focus:ring-0;
+  @apply block w-full rounded-2xl border-2 border-bg bg-bg py-2.5 pl-12 pr-12 text-lg font-medium purple-shadow focus:border-primary-300 focus:outline-none;
 }
 
 .glassmorphism {

@@ -3,15 +3,17 @@ import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+
 const navItems = [
-  {
-    name: "Champions",
-    href: "/champions",
-  },
   {
     name: "Guides",
     href: "/guides",
   },
+  {
+    name: "Champions",
+    href: "/champions",
+  },
+
   {
     name: "Items",
     href: "/items",
@@ -20,22 +22,11 @@ const navItems = [
     name: "Runes",
     href: "/runes",
   },
-  {
-    name: "Summoner Spells",
-    href: "/summoner-spells",
-  },
 ];
 export default function Nav() {
   //scrolling effect
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-  }, [isMobileMenuOpen]);
   useEffect(() => {
     window.addEventListener("scroll", () => {
       if (window.scrollY > 0) {
@@ -45,6 +36,26 @@ export default function Nav() {
       }
     });
   }, []);
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      console.log(event.target);
+      if (!event.target.closest(".mobile-menu")) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+      document.addEventListener("click", handleOutsideClick);
+    } else {
+      document.body.style.overflow = "unset";
+      document.removeEventListener("click", handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, [isMobileMenuOpen]);
   return (
     <>
       {/* Desktop Navigation */}
@@ -88,17 +99,17 @@ export default function Nav() {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              initial={{ y: "-100%" }}
-              animate={{ y: 0 }}
-              exit={{ y: "-100%" }}
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
               transition={{
-                duration: 0.5,
+                duration: 0.2,
                 type: "tween",
               }}
-              className="fixed top-0 left-0 w-full bg-primary-800 z-20">
-              <div className="flex flex-col justify-center items-center h-screen w-screen">
-                <ul className="flex flex-col w-screen justify-center">
-                  <li className="text-white h-full flex border-t-2 w-full font-medium py-6 text-center bg-white/10 text-lg hover:text-gray-400">
+              className="fixed top-0 right-0 w-[calc(100vw-4rem)] bg-primary-800 z-30">
+              <div className="flex flex-col h-screen w-full px-6 mobile-menu">
+                <ul className="flex flex-col gap-8 items-end mt-24 w-full justify-center">
+                  <li className="text-3xl section_heading">
                     <Link
                       className="w-full h-full"
                       onClick={() => {
@@ -109,7 +120,7 @@ export default function Nav() {
                     </Link>
                   </li>
                   {navItems.map((item, index) => (
-                    <li key={index} className="text-white border-t-2 last:border-b-2 w-full font-medium py-6 text-center bg-white/10 text-lg hover:text-gray-400">
+                    <li key={index} className="text-3xl section_heading">
                       <Link
                         className="w-full h-full"
                         onClick={() => {
