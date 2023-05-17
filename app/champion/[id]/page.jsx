@@ -1,5 +1,6 @@
 "use client";
 import ChampionProfile from "@components/ChampionProfile";
+import Loader from "@components/Loader";
 import { useQuery } from "react-query";
 
 export default function ChampionPage({ params }) {
@@ -14,8 +15,9 @@ export default function ChampionPage({ params }) {
     const championArray = Object.values(championData.data);
     return championArray;
   });
-
   return (
-    <section className="top_section min-h-screen px-6 lg:px-12">{isLoading ? <p>Loading...</p> : error ? <p>Error: {error.message}</p> : <ChampionProfile champion={champion[0]} />}</section>
+    <section className="top_section min-h-screen px-6 lg:px-12 xl:px-24">
+      {isLoading ? <Loader /> : error ? <p>Error: {error.message}</p> : <ChampionProfile champion={champion[0]} />}
+    </section>
   );
 }

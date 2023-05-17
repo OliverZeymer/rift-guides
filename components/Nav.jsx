@@ -24,7 +24,6 @@ const navItems = [
   },
 ];
 export default function Nav() {
-  //scrolling effect
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   useEffect(() => {
@@ -38,12 +37,10 @@ export default function Nav() {
   }, []);
   useEffect(() => {
     const handleOutsideClick = (event) => {
-      console.log(event.target);
       if (!event.target.closest(".mobile-menu")) {
         setIsMobileMenuOpen(false);
       }
     };
-
     if (isMobileMenuOpen) {
       document.body.style.overflow = "hidden";
       document.addEventListener("click", handleOutsideClick);
@@ -65,7 +62,7 @@ export default function Nav() {
         }`}>
         <div className="flex-1 flex justify-start items-center">
           <Link href="/" className="mr-12 xl:mr-12">
-            <h2 className="font-bold text-2xl gradient_text">Rift-Guides</h2>
+            <h2 className="font-bold text-2xl gradient_text_hover">Rift-Guides</h2>
           </Link>
           <ul className="flex gap-8 xl:gap-10">
             {navItems.map((item, index) => (
@@ -76,10 +73,12 @@ export default function Nav() {
           </ul>
         </div>
         <div className="flex justify-end items-center">
-          <a href="#guides" className="text-white font-medium text-lg mr-8 hover:text-gray-400">
+          <Link href="/login" className="text-white font-medium text-lg mr-8 hover:text-gray-400">
             Sign in
-          </a>
-          <button className={`px-6 ${isScrolled ? "py-1" : "py-2"} primary_btn text-lg font-medium rounded-md`}>Sign up</button>
+          </Link>
+          <Link href="/register" className={`px-6 ${isScrolled ? "py-1" : "py-2"} primary_btn text-lg font-medium rounded-md`}>
+            Sign up
+          </Link>
         </div>
       </nav>
       {/* Mobile Navigation */}
