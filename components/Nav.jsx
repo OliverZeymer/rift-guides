@@ -1,8 +1,11 @@
 "use client";
-import { Menu, X } from "lucide-react";
+import { LogOut, Menu, X } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import TokenContext from "@contexts/TokenContext";
+import { setCookie } from "react-use-cookie";
+import { toast } from "react-toastify";
 
 const navItems = [
   {
@@ -24,6 +27,7 @@ const navItems = [
   },
 ];
 export default function Nav() {
+  const { token, setToken } = useContext(TokenContext);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   useEffect(() => {
@@ -53,6 +57,12 @@ export default function Nav() {
       document.removeEventListener("click", handleOutsideClick);
     };
   }, [isMobileMenuOpen]);
+  function logOut() {
+    setToken(null);
+    setCookie("token", "", { days: 0 });
+    sessionStorage.removeItem("token");
+    toast.success("Logged out successfully");
+  }
   return (
     <>
       {/* Desktop Navigation */}
@@ -72,13 +82,22 @@ export default function Nav() {
             ))}
           </ul>
         </div>
-        <div className="flex justify-end items-center">
-          <Link href="/login" className="text-white font-medium text-lg mr-8 hover:text-gray-400">
-            Sign in
-          </Link>
-          <Link href="/register" className={`px-6 ${isScrolled ? "py-1" : "py-2"} primary_btn text-lg font-medium rounded-md`}>
-            Sign up
-          </Link>
+        <div className="flex justify-end gap-8 xl:gap-10 items-center">
+          {!token ? (
+            <Link href="/register" className={`px-6 ${isScrolled ? "py-1" : "py-2"} primary_btn text-lg font-medium rounded-md`}>
+              Log in
+            </Link>
+          ) : (
+            <>
+              <button onClick={logOut} className="outline_btn">
+                <LogOut className="mr-1" size={16} />
+                Log out
+              </button>
+              <Link href="/profile" className={`px-6 ${isScrolled ? "py-1" : "py-2"} primary_btn text-lg font-medium rounded-md`}>
+                Profile
+              </Link>
+            </>
+          )}
         </div>
       </nav>
       {/* Mobile Navigation */}

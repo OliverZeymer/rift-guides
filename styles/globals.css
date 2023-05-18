@@ -49,6 +49,9 @@
 .white_gradient {
   background-image: linear-gradient(180deg, #fff, hsla(0, 0%, 100%, 0.6));
 }
+.outline_btn {
+  @apply rounded-full border-2 border-black bg-black py-1 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-base flex items-center justify-center;
+}
 .tippy-tooltip {
   text-align: left !important;
   padding: 0 !important;
@@ -118,10 +121,6 @@
 }
 .section_subheading {
   @apply white_gradient text-lg leading-[28px] md:text-xl md:leading-[32px] lg:text-2xl lg:leading-[40x] xl:text-3xl xl:leading-[48px] bg-clip-text bg-[length:100%_32px] md:bg-[length:100%_46px] lg:bg-[length:100%_60px] xl:bg-[length:100%_64px] text-transparent font-semibold text-shadow-sm text-center lg:text-left;
-}
-
-.outline_btn {
-  @apply rounded-full border border-black bg-transparent py-1.5 px-5 text-black transition-all hover:bg-black hover:text-white text-center text-sm  flex items-center justify-center;
 }
 
 .primary_btn {

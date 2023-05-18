@@ -2,8 +2,6 @@ import Image from "next/image";
 import AbilityTooltip from "./AbilityTooltip";
 
 export default function ChampionProfile({ champion }) {
-  console.log(champion);
-  const championId = champion?.id;
   const championName = champion?.name;
   return (
     <article className="flex gap-12 justify-center">
@@ -47,7 +45,7 @@ export default function ChampionProfile({ champion }) {
           </AbilityTooltip>
 
           {champion?.spells?.map((spell, index) => (
-            <AbilityTooltip name={spell.name} description={spell.description} championName={championName}>
+            <AbilityTooltip key={spell.id} name={spell.name} description={spell.description} championName={championName}>
               <div className="relative">
                 <Image
                   src={`${process.env.NEXT_PUBLIC_DATA_API_URL}/img/spell/${spell.image.full}`}
