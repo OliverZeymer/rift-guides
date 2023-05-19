@@ -25,7 +25,12 @@
   }
 }
 .app {
-  @apply relative z-10 bg-bg flex justify-center items-center flex-col text-white;
+  @apply relative z-10 flex flex-col items-center justify-center overflow-x-hidden bg-bg text-white;
+}
+
+html,
+body {
+  overflow-x: hidden;
 }
 ::-webkit-scrollbar {
   width: 12px;
@@ -50,7 +55,7 @@
   background-image: linear-gradient(180deg, #fff, hsla(0, 0%, 100%, 0.6));
 }
 .outline_btn {
-  @apply rounded-full border-2 border-black bg-black py-1 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-base flex items-center justify-center;
+  @apply flex items-center justify-center rounded-full border-2 border-black bg-black px-5 py-1 text-center text-base text-white transition-all hover:bg-white hover:text-black;
 }
 .tippy-tooltip {
   text-align: left !important;
@@ -117,32 +122,32 @@
 }
 
 .section_heading {
-  @apply white_gradient text-3xl leading-[32px] md:text-4xl md:leading-[40px] lg:text-5xl lg:leading-[60px] xl:text-6xl xl:leading-[64px] bg-clip-text bg-[length:100%_32px] md:bg-[length:100%_46px] lg:bg-[length:100%_60px] xl:bg-[length:100%_64px] text-transparent font-semibold text-shadow-sm text-center lg:text-left;
+  @apply white_gradient text-shadow-sm bg-[length:100%_32px] bg-clip-text text-center text-3xl font-semibold leading-[32px] text-transparent md:bg-[length:100%_46px] md:text-4xl md:leading-[40px] lg:bg-[length:100%_60px] lg:text-left lg:text-5xl lg:leading-[60px] xl:bg-[length:100%_64px] xl:text-6xl xl:leading-[64px];
 }
 .section_subheading {
-  @apply white_gradient text-lg leading-[28px] md:text-xl md:leading-[32px] lg:text-2xl lg:leading-[40x] xl:text-3xl xl:leading-[48px] bg-clip-text bg-[length:100%_32px] md:bg-[length:100%_46px] lg:bg-[length:100%_60px] xl:bg-[length:100%_64px] text-transparent font-semibold text-shadow-sm text-center lg:text-left;
+  @apply white_gradient text-shadow-sm bg-[length:100%_32px] bg-clip-text text-center text-lg font-semibold leading-[28px] text-transparent md:bg-[length:100%_46px] md:text-xl md:leading-[32px] lg:bg-[length:100%_60px] lg:text-left lg:text-2xl lg:leading-[40x] xl:bg-[length:100%_64px] xl:text-3xl xl:leading-[48px];
 }
 
 .primary_btn {
-  @apply cursor-pointer hover:scale-105 active:scale-95 text-white transition-all duration-300 bg-gradient-to-r from-secondary-100  via-primary-100 to-secondary-100 bg-size-200 bg-pos-0 hover:bg-pos-100;
+  @apply cursor-pointer bg-gradient-to-r from-secondary-100 via-primary-100 to-secondary-100 bg-size-200 bg-pos-0 text-white  transition-all duration-300 hover:scale-105 hover:bg-pos-100 active:scale-95;
 }
 
 .gradient_text_hover {
-  @apply transition-all duration-300 bg-gradient-to-r from-secondary-100 via-primary-100 to-secondary-100 bg-size-200 bg-pos-100 hover:bg-pos-0 bg-clip-text text-transparent w-fit;
+  @apply w-fit bg-gradient-to-r from-secondary-100 via-primary-100 to-secondary-100 bg-size-200 bg-clip-text bg-pos-100 text-transparent transition-all duration-300 hover:bg-pos-0;
 }
 
 .gradient_text {
-  @apply bg-gradient-to-r from-primary-100 to-secondary-100 bg-clip-text text-transparent w-fit;
+  @apply w-fit bg-gradient-to-r from-primary-100 to-secondary-100 bg-clip-text text-transparent;
 }
 
 .landing_text {
-  @apply text-5xl md:text-6xl lg:text-7xl xl:text-8xl relative tracking-tight font-extrabold drop-shadow-xl gradient_text;
+  @apply gradient_text relative text-5xl font-extrabold tracking-tight drop-shadow-xl md:text-6xl lg:text-7xl xl:text-8xl;
 }
 .search_input {
-  @apply block w-full rounded-2xl border-2 border-bg bg-bg py-2.5 pl-12 pr-12 text-lg font-medium purple-shadow focus:border-primary-300 focus:outline-none;
+  @apply purple-shadow block w-full rounded-2xl border-2 border-bg bg-bg py-2.5 pl-12 pr-12 text-lg font-medium focus:border-primary-300 focus:outline-none;
 }
 .glassmorphism {
-  @apply rounded-xl border border-gray-200 bg-black/20 shadow-[inset_10px_-50px_94px_0_rgb(99,99,99,0.2)] backdrop-blur p-8;
+  @apply rounded-xl border border-gray-200 bg-black/20 p-8 shadow-[inset_10px_-50px_94px_0_rgb(99,99,99,0.2)] backdrop-blur;
 }
 .text-shadow {
   text-shadow: #000 1px 0 3px;
@@ -172,7 +177,15 @@
   border-top-color: #ff6a00;
   animation: jump 1.5s linear infinite;
 }
-
+.loader-sm {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: #ff6a00;
+  animation: jumpPurple 1.5s linear infinite;
+  margin-inline: auto;
+}
 @keyframes jump {
   0% {
     transform: rotate(0deg);
@@ -193,5 +206,27 @@
   100% {
     transform: rotate(360deg);
     border-top-color: #ff6a00;
+  }
+}
+@keyframes jumpPurple {
+  0% {
+    transform: rotate(0deg);
+    border-top-color: #7402ee;
+  }
+  25% {
+    transform: rotate(90deg);
+    border-top-color: #7402ee;
+  }
+  50% {
+    transform: rotate(140deg);
+    border-top-color: #7402ee;
+  }
+  75% {
+    transform: rotate(270deg);
+    border-top-color: #7402ee;
+  }
+  100% {
+    transform: rotate(360deg);
+    border-top-color: #7402ee;
   }
 }

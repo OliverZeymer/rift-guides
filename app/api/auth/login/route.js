@@ -27,13 +27,17 @@ export async function POST(req) {
       });
     }
 
-    const newToken = jwt.sign({ email: user.email }, process.env.TOKEN_SECRET);
+    const newToken = jwt.sign({ email }, process.env.TOKEN_SECRET, {
+      expiresIn: "1h",
+    });
+    console.log(newToken);
 
     return new Response(
       JSON.stringify({
         success: true,
         message: "User authenticated successfully",
         token: newToken,
+        expiresIn: 3600,
       }),
       {
         status: 200,

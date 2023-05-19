@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <>
       <LandingHero />
-      <section className="w-full h-screen"></section>
+      <section className="h-screen w-full"></section>
     </>
   );
 }

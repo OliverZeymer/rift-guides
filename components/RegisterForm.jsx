@@ -7,11 +7,12 @@ import { setCookie } from "react-use-cookie";
 import { validateForm } from "@utils/validateForm";
 import { logIn } from "@utils/logIn";
 import { createUser } from "@utils/createUser";
+import Loader from "./Loader";
 // This gets handled by the [...nextauth] endpoint
 export default function RegisterForm() {
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
-  const { token, setToken } = useContext(TokenContext);
+  const { setToken } = useContext(TokenContext);
   const [redEmailField, setRedEmailField] = useState(false);
   const [redPasswordField, setRedPasswordField] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -34,10 +35,10 @@ export default function RegisterForm() {
   }
 
   return (
-    <section className="top_section max-w-7xl mx-auto px-6 lg:px-12 min-h-screen">
+    <section className="top_section mx-auto min-h-screen max-w-7xl px-6 lg:px-12">
       <>
-        <h1 className="text-7xl leading-snug gradient_text">{isLogin ? "Login" : "Sign Up"}</h1>
-        <form className="bg-gradient-to-b relative from-purple-700 to-pink-700 p-4 rounded-lg flex flex-col items-center justify-center gap-4" onSubmit={submitHandler}>
+        <h1 className="gradient_text mb-8 text-7xl leading-snug">{isLogin ? "Login" : "Sign Up"}</h1>
+        <form className="relative flex flex-col items-center justify-center gap-4 rounded-lg bg-gradient-to-b from-purple-800 to-pink-700 p-4" onSubmit={submitHandler}>
           <div>
             <label htmlFor="email">Your Email</label>
             <input
@@ -50,7 +51,7 @@ export default function RegisterForm() {
               placeholder="Enter your email"
               className={`block w-full rounded-2xl border-2 ${
                 redEmailField ? "border-red-500" : "border-bg"
-              } bg-bg py-2.5 pl-4 text-lg font-medium purple-shadow focus:border-primary-300 focus:outline-none`}
+              } purple-shadow bg-bg py-2.5 pl-4 text-lg font-medium focus:border-primary-300 focus:outline-none`}
               id="email"
             />
           </div>
@@ -66,15 +67,15 @@ export default function RegisterForm() {
               placeholder="Enter your password"
               className={`block w-full rounded-2xl border-2 ${
                 redPasswordField ? "border-red-500" : "border-bg"
-              } bg-bg py-2.5 pl-4 text-lg font-medium purple-shadow focus:border-primary-300 focus:outline-none`}
+              } purple-shadow bg-bg py-2.5 pl-4 text-lg font-medium focus:border-primary-300 focus:outline-none`}
             />
           </div>
-          <div className="my-5 flex flex-col items-center justify-center">
-            <button type="submit" className="primary_btn py-2.5 w-full px-6 shadow-xl text-2xl rounded-full">
-              {isLogin ? "Login" : !isLogin ? "Create Account" : isLoading ? "Loading..." : "Login"}
+          <div className="my-5 flex flex-col items-center justify-center gap-4">
+            <button type="submit" className="primary_btn w-full rounded-full px-6 py-2.5 text-2xl shadow-xl">
+              {isLoading ? <Loader size="sm" /> : isLogin ? "Login" : !isLogin ? "Create Account" : "Login"}
             </button>
-            <button type="button" onClick={switchAuthModeHandler}>
-              {isLogin ? "No Account? Create One" : "Already a user? Login"}
+            <button className="text-shadow text-lg" type="button" onClick={switchAuthModeHandler}>
+              {isLogin ? "No account? Create one here" : "Already a user? Login"}
             </button>
           </div>
         </form>

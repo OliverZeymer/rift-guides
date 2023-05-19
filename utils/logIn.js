@@ -1,7 +1,7 @@
 export async function logIn(email, password, router, toast, setToken, setCookie, setIsLoading) {
   try {
     setIsLoading(true);
-    const response = await fetch("/api/auth/signin", {
+    const response = await fetch("/api/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -11,8 +11,17 @@ export async function logIn(email, password, router, toast, setToken, setCookie,
     const data = await response.json();
 
     if (response.ok) {
-      setToken(data?.token);
-      setCookie("token", data?.token, { expires: 1 });
+      setToken({
+        token: data?.token.toString(),
+        expiresIn: data?.expiresIn,
+      });
+      setCookie("token", data?.token, {
+        days: 1,
+      });
+      setCookie("expiresIn", data?.expiresIn, {
+        days: 1,
+      });
+
       toast.success("You have successfully logged in!");
       router.push("/");
     } else {
