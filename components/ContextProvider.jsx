@@ -8,11 +8,9 @@ export default function ContextProvider({ children }) {
   useEffect(() => {
     // Check if token is in cookie
     const CookieToken = getCookie("token");
-    const CookieExpiresIn = getCookie("expiresIn");
     if (CookieToken) {
       setToken({
         token: CookieToken,
-        expiresIn: CookieExpiresIn,
       });
     }
   }, []);

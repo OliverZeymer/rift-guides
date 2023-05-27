@@ -4,8 +4,6 @@ import ChampionFiltering from "@components/ChampionFiltering";
 import Loader from "@components/Loader";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { motion } from "framer-motion";
-import { set } from "mongoose";
 export default function Champions() {
   const {
     data: champions,

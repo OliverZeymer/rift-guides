@@ -38,6 +38,10 @@ export async function POST(req) {
         message: "User authenticated successfully",
         token: newToken,
         expiresIn: 3600,
+        user: {
+          email,
+          id: user._id,
+        },
       }),
       {
         status: 200,

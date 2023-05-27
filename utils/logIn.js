@@ -14,6 +14,7 @@ export async function logIn(email, password, router, toast, setToken, setCookie,
       setToken({
         token: data?.token.toString(),
         expiresIn: data?.expiresIn,
+        user: data?.user,
       });
       setCookie("token", data?.token, {
         days: 1,

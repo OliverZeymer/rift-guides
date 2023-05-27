@@ -15,6 +15,9 @@ const userSchema = new Schema(
       minlength: 6,
       select: false,
     },
+    profilePicture: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
