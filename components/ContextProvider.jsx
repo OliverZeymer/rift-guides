@@ -1,18 +1,36 @@
 "use client";
 import { useEffect, useState } from "react";
-import TokenContext from "@contexts/TokenContext";
-import { getCookie } from "react-use-cookie";
+import AuthContext from "@contexts/AuthContext";
+import { getCookie, setCookie } from "react-use-cookie";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function ContextProvider({ children }) {
-  const [token, setToken] = useState(null);
-  useEffect(() => {
-    // Check if token is in cookie
+  const [auth, setAuth] = useState(false);
+  console.log(auth);
+  async function checkToken() {
     const CookieToken = getCookie("token");
     if (CookieToken) {
-      setToken({
-        token: CookieToken,
+      const res = await axios.get("/api/auth/verifytoken", {
+        headers: {
+          Authorization: `Bearer ${CookieToken}`,
+        },
       });
+      if (res.status === 200) {
+        setAuth({
+          token: CookieToken,
+          user: res?.data?.user,
+        });
+      } else {
+        setAuth(false);
+        setCookie("token", "", { days: 0 });
+        toast.error("An error occurred while logging in.");
+      }
     }
+  }
+
+  useEffect(() => {
+    checkToken();
   }, []);
-  return <TokenContext.Provider value={{ token, setToken }}>{children}</TokenContext.Provider>;
+  return <AuthContext.Provider value={{ auth, setAuth }}>{children}</AuthContext.Provider>;
 }

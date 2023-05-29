@@ -3,7 +3,7 @@ import { LogOut, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import TokenContext from "@contexts/TokenContext";
+import AuthContext from "@contexts/AuthContext";
 import { setCookie } from "react-use-cookie";
 import { toast } from "react-toastify";
 
@@ -27,7 +27,7 @@ const navItems = [
   },
 ];
 export default function Nav() {
-  const { token, setToken } = useContext(TokenContext);
+  const { auth, setAuth } = useContext(AuthContext);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   useEffect(() => {
@@ -58,10 +58,8 @@ export default function Nav() {
     };
   }, [isMobileMenuOpen]);
   function logOut() {
-    setToken();
+    setAuth(false);
     setCookie("token", "", { days: 0 });
-    setCookie("expiresIn", "", { days: 0 });
-    setCookie("validUntil", "", { days: 0 });
     toast.success("Logged out successfully");
   }
   return (
@@ -84,7 +82,7 @@ export default function Nav() {
           </ul>
         </div>
         <div className="flex items-center justify-end gap-8 xl:gap-10">
-          {!token ? (
+          {!auth ? (
             <Link href="/login" className={`px-6 ${isScrolled ? "py-1" : "py-2"} primary_btn rounded-md text-lg font-medium`}>
               Log in
             </Link>
@@ -152,7 +150,7 @@ export default function Nav() {
                     </li>
                   ))}
 
-                  {!token ? (
+                  {!auth ? (
                     <Link
                       onClick={() => {
                         setIsMobileMenuOpen(false);

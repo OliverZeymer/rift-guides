@@ -17,6 +17,7 @@ export async function GET(req) {
 
     // Retrieve the user account using the email from the decoded token
     const user = await User.findOne({ email: decodedToken.email });
+
     if (!user) {
       return new Response(JSON.stringify({ success: false, message: "User not found" }), {
         status: 404,

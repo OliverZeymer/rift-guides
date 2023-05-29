@@ -1,4 +1,4 @@
-export async function logIn(email, password, router, toast, setToken, setCookie, setIsLoading) {
+export async function logIn(email, password, router, toast, setAuth, setCookie, setIsLoading) {
   try {
     setIsLoading(true);
     const response = await fetch("/api/auth/login", {
@@ -9,17 +9,13 @@ export async function logIn(email, password, router, toast, setToken, setCookie,
       body: JSON.stringify({ email, password }),
     });
     const data = await response.json();
-
+    console.log(data);
     if (response.ok) {
-      setToken({
+      setAuth({
         token: data?.token.toString(),
-        expiresIn: data?.expiresIn,
         user: data?.user,
       });
       setCookie("token", data?.token, {
-        days: 1,
-      });
-      setCookie("expiresIn", data?.expiresIn, {
         days: 1,
       });
 

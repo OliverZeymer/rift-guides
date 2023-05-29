@@ -1,7 +1,7 @@
 "use client";
 import { useState, useContext } from "react";
 import { useRouter } from "next/navigation";
-import TokenContext from "@contexts/TokenContext";
+import AuthContext from "@contexts/AuthContext";
 import { toast } from "react-toastify";
 import { setCookie } from "react-use-cookie";
 import { validateForm } from "@utils/validateForm";
@@ -12,7 +12,7 @@ import Loader from "./Loader";
 export default function RegisterForm() {
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
-  const { setToken } = useContext(TokenContext);
+  const { setAuth } = useContext(AuthContext);
   const [redEmailField, setRedEmailField] = useState(false);
   const [redPasswordField, setRedPasswordField] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +28,7 @@ export default function RegisterForm() {
     const isFormValid = validateForm(enteredEmail, enteredPassword, setRedEmailField, setRedPasswordField, toast);
     if (!isFormValid) return;
     if (isLogin) {
-      logIn(enteredEmail, enteredPassword, router, toast, setToken, setCookie, setIsLoading);
+      logIn(enteredEmail, enteredPassword, router, toast, setAuth, setCookie, setIsLoading);
     } else {
       createUser(enteredEmail, enteredPassword, toast, setIsLoading, switchAuthModeHandler);
     }

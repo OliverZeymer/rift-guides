@@ -4,7 +4,7 @@ const nextConfig = {
     serverComponentsExternalPackages: ["mongoose"],
   },
   images: {
-    domains: ["ddragon.leagueoflegends.com"],
+    domains: ["ddragon.leagueoflegends.com", "res.cloudinary.com"],
   },
 
   webpack(config) {

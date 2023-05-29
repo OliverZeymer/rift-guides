@@ -13,7 +13,7 @@ export async function POST(req) {
   }
 
   try {
-    const user = await User.findOne({ email }).select("password");
+    const user = await User.findOne({ email }).select("+password");
     if (!user) {
       return new Response(JSON.stringify({ success: false, message: "User not found" }), {
         status: 404,
@@ -27,21 +27,15 @@ export async function POST(req) {
       });
     }
 
-    const newToken = jwt.sign({ email }, process.env.TOKEN_SECRET, {
-      expiresIn: "1h",
-    });
-    console.log(newToken);
-
+    const newToken = jwt.sign({ email }, process.env.TOKEN_SECRET);
+    const userWithoutPassword = { ...user._doc };
+    delete userWithoutPassword.password;
     return new Response(
       JSON.stringify({
         success: true,
         message: "User authenticated successfully",
         token: newToken,
-        expiresIn: 3600,
-        user: {
-          email,
-          id: user._id,
-        },
+        user: userWithoutPassword,
       }),
       {
         status: 200,
