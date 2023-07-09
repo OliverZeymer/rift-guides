@@ -188,6 +188,23 @@ body {
   animation: jumpPurple 1.5s linear infinite;
   margin-inline: auto;
 }
+
+.nav-link::before {
+  transition: 300ms;
+  height: 3px;
+  content: "";
+  position: absolute;
+  background: linear-gradient(to right, #7402ee, #ff6a00);
+  width: 0%;
+  bottom: -10px;
+}
+.nav-link:hover::before {
+  width: 100%;
+}
+
+.nav-link-selected::before {
+  width: 100%;
+}
 @keyframes jump {
   0% {
     transform: rotate(0deg);

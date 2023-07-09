@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import AuthContext from "@contexts/AuthContext";
 import { setCookie } from "react-use-cookie";
 import { toast } from "react-toastify";
+import NavLink from "./NavLink";
 
 const navItems = [
   {
@@ -66,7 +67,7 @@ export default function Nav() {
     <>
       {/* Desktop Navigation */}
       <nav
-        className={`fixed top-0 z-10 hidden w-full items-center justify-between border-b-2 border-primary-900 bg-primary-800 px-6 shadow-xl transition-all lg:flex lg:px-12 xl:px-24 ${
+        className={`fixed top-0 z-10 hidden w-full select-none items-center justify-between border-b-2 border-primary-900 bg-primary-800 px-6 shadow-xl transition-all lg:flex lg:px-12 xl:px-24 ${
           isScrolled ? "py-2" : "py-4"
         }`}>
         <div className="flex flex-1 items-center justify-start">
@@ -75,8 +76,13 @@ export default function Nav() {
           </Link>
           <ul className="flex gap-8 xl:gap-10">
             {navItems.map((item, index) => (
-              <li key={index} className="text-lg font-medium text-white hover:text-gray-400">
-                <Link href={item.href}>{item.name}</Link>
+              <li key={item.name}>
+                <NavLink
+                  className="hover:text-gold nav-link nav-link relative w-fit text-lg tracking-wide transition-colors xl:text-xl"
+                  activeClassName="text-gold relative transition-colors tracking-wide w-fit text-lg xl:text-xl nav-link nav-link-selected"
+                  href={item.href ? item.href : "/"}>
+                  {item.name}
+                </NavLink>
               </li>
             ))}
           </ul>
@@ -107,7 +113,7 @@ export default function Nav() {
           </Link>
         </div>
 
-        <div className="flex items-center justify-end">
+        <div className="flex cursor-pointer items-center justify-end">
           {!isMobileMenuOpen ? (
             <Menu className="!z-40" size={32} onClick={() => setIsMobileMenuOpen((prev) => !prev)} />
           ) : (
@@ -144,7 +150,7 @@ export default function Nav() {
                         onClick={() => {
                           setIsMobileMenuOpen(false);
                         }}
-                        href={item.href}>
+                        href={item.href ? item.href : "/"}>
                         {item.name}
                       </Link>
                     </li>
@@ -170,7 +176,7 @@ export default function Nav() {
                         onClick={() => {
                           setIsMobileMenuOpen(false);
                         }}
-                        className="primary_btn rounded-md px-6 py-2 text-3xl font-medium">
+                        className="primary_btn rounded-md px-6 py-2 text-2xl font-medium">
                         Profile
                       </Link>
                     </>

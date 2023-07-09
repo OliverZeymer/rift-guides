@@ -8,7 +8,7 @@ export default function AbilityTooltip({ children, name, description, championNa
       interactive
       animation="shift"
       title={
-        "<div class='p-3 bg-bg box-content border border-white/50 rounded'>" +
+        "<div class='p-3 bg-bg box-content border-2 border-white/50 rounded'>" +
         "<span class='text-xl font-semibold gradient_text'>" +
         name +
         "</span>" +

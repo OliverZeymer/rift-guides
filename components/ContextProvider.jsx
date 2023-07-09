@@ -11,20 +11,22 @@ export default function ContextProvider({ children }) {
   async function checkToken() {
     const CookieToken = getCookie("token");
     if (CookieToken) {
-      const res = await axios.get("/api/auth/verifytoken", {
-        headers: {
-          Authorization: `Bearer ${CookieToken}`,
-        },
-      });
-      if (res.status === 200) {
-        setAuth({
-          token: CookieToken,
-          user: res?.data?.user,
+      try {
+        const response = await axios.get("/api/auth/checkToken", {
+          headers: {
+            Authorization: `Bearer ${CookieToken}`,
+          },
         });
-      } else {
+        if (response.data.success) {
+          setAuth(true);
+        } else {
+          setAuth(false);
+          toast.error("You have been logged out");
+        }
+      } catch (error) {
+        console.log(error);
         setAuth(false);
-        setCookie("token", "", { days: 0 });
-        toast.error("An error occurred while logging in.");
+        toast.error("You have been logged out");
       }
     }
   }

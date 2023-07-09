@@ -5,10 +5,18 @@ import AuthContext from "@contexts/AuthContext";
 import axios from "axios";
 import { Edit } from "lucide-react";
 import Image from "next/image";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Profile() {
   const { auth, setAuth } = useContext(AuthContext);
+  const router = useRouter();
+  useEffect(() => {
+    if (!auth.user) {
+      router.push("/");
+    }
+  }, [auth]);
+
   async function updateUsername(username) {
     const res = await axios.post("/api/user/update-user", {
       username,

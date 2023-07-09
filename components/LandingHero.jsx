@@ -8,7 +8,7 @@ import { useState } from "react";
 export default function LandingHero() {
   const [searchValue, setSearchValue] = useState("");
   return (
-    <section className="top_section relative flex min-h-screen w-full select-none flex-col items-center justify-center overflow-hidden">
+    <section className="top_section relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden">
       <Image alt="rift guides background" src="/assets/images/rift-guides-background.webp" fill className="absolute inset-0 -z-10 bg-cover bg-center object-cover pt-4 opacity-30" />
       <article className="mx-auto flex h-full max-w-7xl flex-col items-center justify-center px-6 lg:px-12">
         <div>

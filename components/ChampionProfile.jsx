@@ -5,7 +5,7 @@ export default function ChampionProfile({ champion }) {
   const championName = champion?.name;
   return (
     <article className="flex justify-center gap-12">
-      <div className="w-fit rounded-lg bg-black/50 p-4 backdrop-blur">
+      <div className="flex w-fit flex-col items-center justify-between rounded-lg bg-black/50 p-4 backdrop-blur">
         <div className="mb-2 flex items-center gap-4">
           <h1 className="section_heading bg-section_heading">{champion?.name}</h1>
           <div className="overflow-hidden rounded-full">
